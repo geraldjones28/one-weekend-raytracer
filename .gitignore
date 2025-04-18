@@ -1,0 +1,13 @@
+# Build artifacts
+cmake-build-*/
+*.o
+*.obj
+*.out
+
+# CLion and IDE files
+.idea/
+*.iml
+
+# MacOS / Windows system files
+.DS_Store
+Thumbs.db
