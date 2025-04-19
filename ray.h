@@ -14,7 +14,7 @@ class ray {
       vec3 direction() const  { return B; }
       /* returns a point on the ray at paramenter t, used for tracing rays through
          a scene */
-      vec3 point_at_parameter(float t) const { return A + (B * t); }
+      vec3 point_at_parameter(double t) const { return A + (B * t); }
 
       vec3 A;
       vec3 B;
