@@ -43,7 +43,7 @@ int main() {
     list[4] = new sphere(vec3(-1,0,-1), -0.45, new dielectric(1.5)); //Bubble effect in left sphere
     hitable *world = new hitable_list(list,5);
 
-    camera cam;
+    camera cam(90, float(nx)/float(ny));
 
     // Core Ray Tracing Loop
     for (int j = ny-1; j >= 0; j--) { // Top to Bottom
