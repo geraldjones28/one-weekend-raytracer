@@ -33,14 +33,15 @@ int main() {
     cout << "P3\n" << nx << " " << ny << "\n255\n";
 
     hitable *list[4];
-    list[0] = new sphere(vec3(0,0,-1), 0.5, new lambertian(vec3(0.8, 0.3, 0.3)));
-    list[1] = new sphere(vec3(0,-100.5,-1), 100, new lambertian(vec3(0.8, 0.8, 0.0)));
-    list[2] = new sphere(vec3(1,0,-1), 0.5, new metal(vec3(0.8, 0.6, 0.2)));
-    list[3] = new sphere(vec3(-1,0,-1), 0.5, new metal(vec3(0.8, 0.8, 0.8)));
+    list[0] = new sphere(vec3(0,0,-1), 0.5, new lambertian(vec3(0.8, 0.3, 0.3))); // Middle Sphere
+    list[1] = new sphere(vec3(0,-100.5,-1), 100, new lambertian(vec3(0.8, 0.8, 0.0))); //Ground
+    list[2] = new sphere(vec3(1,0,-1), 0.5, new metal(vec3(0.8, 0.6, 0.2), 0.3)); //Right Sphere
+    list[3] = new sphere(vec3(-1,0,-1), 0.5, new metal(vec3(0.8, 0.8, 0.8), 1.0)); //Left Sphere
     hitable *world = new hitable_list(list,4);
 
     camera cam;
 
+    // Core Ray Tracing
     for (int j = ny-1; j >= 0; j--) { // Top to Bottom
         for (int i = 0; i < nx; i++) { // Left to Right
             vec3 col(0, 0, 0);
@@ -48,13 +49,14 @@ int main() {
                 float u = float(i + drand48()) / float(nx);
                 float v = float(j + drand48()) / float(ny);
 
-                ray r = cam.get_ray(u,v);
+                ray r = cam.get_ray(u,v); // Firing a ray into world
 
-                vec3 p = r.point_at_parameter(2.0);
-                col += color(r, world,0);
+                // vec3 p = r.point_at_parameter(2.0);
+                col += color(r, world,0); // Recursive color computation
             }
-            col /= float(ns);
-            col = vec3( sqrt(col[0]), sqrt(col[1]), sqrt(col[2]) );
+            col /= float(ns); // Average the color over all samples
+            col = vec3( sqrt(col[0]), sqrt(col[1]), sqrt(col[2]) ); // Gamma correction, improves lighting
+            // Writing image data VV
             int ir = int(255.99*col[0]);
             int ig = int(255.99*col[1]);
             int ib = int(255.99*col[2]);
