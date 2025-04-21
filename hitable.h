@@ -7,6 +7,8 @@
 
 #include "ray.h"
 
+class material;
+
 struct hit_record {
   float t; // The t value where the ray hits the object (how far along the ray)
   vec3 p; // The actual point of intersection
