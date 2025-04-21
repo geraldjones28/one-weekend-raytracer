@@ -45,7 +45,7 @@ int main() {
 
     camera cam;
 
-    // Core Ray Tracing
+    // Core Ray Tracing Loop
     for (int j = ny-1; j >= 0; j--) { // Top to Bottom
         for (int i = 0; i < nx; i++) { // Left to Right
             vec3 col(0, 0, 0);
