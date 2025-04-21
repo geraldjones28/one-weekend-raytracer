@@ -13,6 +13,7 @@ struct hit_record {
   float t; // The t value where the ray hits the object (how far along the ray)
   vec3 p; // The actual point of intersection
   vec3 normal; // The surface normal at that point - used for lighting and shading
+  material* mat_ptr; // The pointer to the material of the object
 };
 
 class hitable {
