@@ -38,12 +38,17 @@ int main() {
     hitable *list[5];
     list[0] = new sphere(vec3(0,0,-1), 0.5, new lambertian(vec3(0.8, 0.3, 0.3))); // Middle Sphere
     list[1] = new sphere(vec3(0,-100.5,-1), 100, new lambertian(vec3(0.8, 0.8, 0.0))); //Ground
-    list[2] = new sphere(vec3(1,0,-1), 0.5, new metal(vec3(0.8, 0.6, 0.2), 0.3)); //Right Sphere
+    list[2] = new sphere(vec3(1, 0, -0.2), 0.5, new metal(vec3(0.8, 0.6, 0.2), 0.3)); //Right Sphere
     list[3] = new sphere(vec3(-1,0,-1), 0.5, new dielectric(1.5)); //Left Sphere
     list[4] = new sphere(vec3(-1,0,-1), -0.45, new dielectric(1.5)); //Bubble effect in left sphere
     hitable *world = new hitable_list(list,5);
 
-    camera cam(vec3(1,2,-3), vec3(1,2,-1), vec3(0,1,0), 90, float(nx)/float(ny)); //Viewpoint
+    vec3 lookfrom(0, 0.5, 2);
+    vec3 lookat(0, 0, -1);
+    float dist_to_focus = (lookfrom - vec3(0, 0, -1)).length();
+    float aperture = 5.0; // not working....
+
+    camera cam(lookfrom, lookat, vec3(0,1,0), 35, float(nx)/float(ny), aperture, dist_to_focus); //Viewpoint
 
     // Core Ray Tracing Loop
     for (int j = ny-1; j >= 0; j--) { // Top to Bottom
